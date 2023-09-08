@@ -1,0 +1,31 @@
+LOCALSTORAGE
+SIRVE PARA GUARDAR INFORMACION A LARGO PLAZO
+
+es una erramienta que solo podremos usar en el frontend
+nos la ofrece el navegador, y es util cuando queremos guardar alguna informacion al largo plazo.
+
+en localStorage podemos guardar alguna informacion.
+y aunque reseteemos la pagina, borremos la pagina, apaguemos el computador, etc. esta informacion siempre estará aqui hasta que la quitemos.
+
+
+ESTO NOS VA A SERVIR PARA EL RECORD. PARA QUE SE GUARDE SIEMPRE.
+
+-........................................................
+PARA LEER, AÑADIR Y REMOVER ITEMS DEL LOCALSTORAGE
+
+PARA TRAER EL VALOR DE ALGUN ITEM
+localStorage.getItem("data",data)
+
+PARA AÑADIR U ITEM
+localStorage.setItem("data")
+
+PARA REMOVER UN ITEM
+localStorage.removeItem("data")
+
+PARA REMOVER TODO 
+localStorage.remove
+
+-----------------------------------------------------------
+
+
+

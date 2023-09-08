@@ -1,0 +1,92 @@
+CANVAS
+
+ES UNA ETIQUETA DE HTML
+PERO PODEMOS USAR JS, PARA PODER DIBUJAR SOBRE ESTA
+
+........................................................
+
+	PARA HACER UN CANVAS
+	
+1 QUERY SELECTOR DEL CANVAS
+	const canvas = document.querySelector("#game");
+	
+	
+2 GETCONTEXT DEL CANVAS
+	const game = canvas.getContext("2d");
+	
+	
+	---------------------------------------------------------
+	
+3 FUNCTIONS DEL GETCONTEXT
+
+es buena practica que se cree una funcion que contenga todas las funciones del canvas- para que este este mas organizado, y se ejecute, despues que se haya cargado la pag.
+
+es de vuena practica inicializar estas funciones una vez 
+	de haya cargado la ventana
+	
+		_window.addEventListener("load", startGame)
+		
+	y una funcion la cual va a tener todas la funciones de
+	un canva-plano
+	
+		_function startGame(){}
+
+
+
+
+	.....FUNCIONES DEL -CANVA.PLANO- ......
+	
+	estas iran dentro de la funcion startGame()
+
+
+__game.fillRect()
+	
+	definimos cual va a ser el lugar desde el cual va a 
+	INICIAR nuestro RECUADRO y el lugar en el cual va a 
+	terminar  (ambos en coordenadas x,y)
+
+		fillRect(0,0,100,100);
+__
+	
+
+__game.clearRect()
+	
+	definimos cual va a ser el lugar desde el cual va a 
+	INICIAR la borrada del  RECUADRO y el lugar en el cual 
+	va a terminar la borrada  (ambos en coordenadas x,y)
+	
+	"todo el espacio que ocupe borrara el fillRect"
+	
+		clearRect(0,0,100,100);
+__
+
+
+
+__game.fillText()
+
+	sirve para agregar un texto al canva-plano
+	como argumento le damos el TEXTO
+	donde va a COMENZAR
+	donde va a TERMINAR
+	
+		fillText("platzi",5,5)
+	
+ 
+   FORMATO DE LOS TEXTOS (ESTILOS)
+   
+   game.font = "25px Verdana";
+   	SIRVE PARA CAMBIAR LA FUENTE DEL TEXTO QUE INSERTAREMOS
+   
+   game.fillStyle = "purple";
+   	SIRVE PARA CAMBIAR COLORES DEL TEXTO QUE INSERTAREMOS
+   	
+   game.textAling = "end";
+   	SIRVE PARA ALINEAR EL TEXTO
+   		
+   		#end & right comienzan desde el final
+   		#left & start comienzan desde el inicio (normal)
+   		#center el texto se centra
+   		
+   		
+   		
+----------------------------------------------------------------------------------------------------------------------------------

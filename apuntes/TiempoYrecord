@@ -1,0 +1,253 @@
+FUNCION SETINTERVAL
+es una función que va a ejecutarse cada cierto intervalo de tiempo infinitamente hasta que clearinterval lo detenga.
+
+const intervalito = setInterval(()=>console.log("oli"),1000)
+
+	#usamos una arrow function para hacer un console log
+	CADA 1000 MILISEGUNDOS (1seg.)
+
+
+---------------------------------------------------------
+
+FUNCTION CLEARINTERVAL
+sirve para detener la repeticion por intervalos de setinterval.
+
+clearInterval(intervalito)
+	
+	#le das el nombre del intervalo, el nombre de la 
+	variable donde lo guardaste
+	
+	
+---------------------------------------------------------
+FUNCTION SETTIMEOUT
+es una funcion va a ejecutar algo esperando un cierto tiempo.
+
+const intervalito = setTimeout(()=>console.log("oli"),1000)
+
+	#es consolelog se va a hacer despues de 1000ms
+
+
+---------------------------------------------------------
+
+
+-----------------------------------------------------------
+
+
+///////
+USAREMOS ESTAS FUNCIONES PARA HACER UN SISTEMA QUE NOS DIGA EL TIEMPO QUE NOS DEMORÓ HACER TODO EL RECORRIDO.
+							///////
+
+--------- ----------
+1. DETECTAMOS CUANDO INICIAMOS LA PARTIDA
+crearemos una variable que guarde cuando hemos iniciamos la partida
+Dentro de startGame.
+
+  if (!timeStart){
+    timeStart = Date.now();
+    timeInterval = setInterval(showTime , 100)
+  }
+  
+preguntamos si la variable tiene algo dentro, si no lo tiene, (osea la primera vez)  le damos el valor de 
+Date.now(), osea ahora. 
+
+
+
+
+--------- ----------
+2. LA FUNCION QUE VA A MOSTRAR EL TIEMPO TRANSCURRIDO
+
+usamos setInterval(), que va a llamar a una funcion cada 100 milisegundos.
+
+esta funcion se va a encargar de imprimir en el DOM 
+el tiempo transcurrido desde que se empezo a jugar.
+
+function showTime(){
+  spanTime.innerHTML = Date.now() - timeStart;
+}
+
+Date.now() - timeStart;
+esto se va a calcular cada 100 milisegundos, es la forma de saber cuando tiempo ha transcurrido desde un punto A, hasta ahora.
+
+
+
+--------- ----------
+3. DETENEMOS EL TIEMPO CUANDO GANEMOS 
+dentro de gameWin(), que se ejecuta cuando terminamos todo el juego, detendremos la cuenta.
+
+function gameWin(){
+  console.log("GANASTE EL JUEGO")
+  clearInterval(timeInterval);
+}
+
+con clearInterval detenemos el tiempo cuando hayamos terminado el juego. ahora podemos hacer records.
+
+
+
+--------- ----------
+4. REINICIAMOS EL TIEMPO SI PERDEMOS
+si perdemos las 3 vidas
+dentro de levelFail() cambiaremos el valor de 
+timeStart = undefined.
+
+PARA QUE EN LA PROXIMA EJECUCION TENGA QUE CALCULARSE DE NUEVO CUANDO SE ESTA EMPEZANDO A JUGAR.
+
+function levelFail (){
+  lives--;
+
+  if(lives <= 0){
+    nuMapa = 0;
+    lives = 3;
+    timeStart = undefined
+  }
+  
+  
+  
+ -----------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 
+ ///////
+ AHORA VAMOS A MOSTRAR EL RECORD QUE TENGAMOS EN EL DOM
+ 						///////
+ 		
+ 
+ 
+Cuando hayamos ganado el juego en gameWin(), vamos a parar el tiempo y guardar nuestro record en el localStorage.
+ 
+ 
+ 
+ const recordTime = localStorage.getItem('record_time');
+  const playerTime = Date.now() - timeStart;
+
+  if (recordTime) {
+    if (recordTime >= playerTime) {
+      localStorage.setItem('record_time', playerTime);
+      pResult.innerHTML = 'SUPERASTE EL RECORD :)';
+      
+    } else {
+      pResult.innerHTML = 'lo siento, no superaste el records :(';
+    }
+  } else {
+    localStorage.setItem('record_time', playerTime);
+    pResult.innerHTML = 'Primera vez? Muy bien, pero ahora trata de superar tu tiempo :)';
+  }
+  
+  
+  
+  1. PRIMERO le estamos asignando al recordTime 
+  record_time. que es nuetro record.
+  
+  
+  2. SEGUNDO a playerTime le estamos asignando el tiempo que se demoró en llegar a la meta el jugador.
+  
+  
+  3. IF ya tenemos un record Preguntamos si este record es mayor  que 
+     el playerTime
+     
+  	SI ES MAYOR (if)
+  		es porque el jugador lo hizo en menos tiempo que el 
+  		record. 
+  		por ello ha superado el record, 
+  		ENTONCES AGREMAMOS ESE RECORD EN LOCALSTORAGE
+  		
+  	
+  	SI NO 	(esle)
+  		es porque el jugador lo hizo es mas tiempo o igual
+  		Le mandamos un mensaje de que no logro RECORD
+  		
+  		
+  		
+ 4. ELSE, sino tiene un record es porque es la primera vez que  juega,  entonces cualquier tiempo que tenga se lo mandamos al RECORD.
+ 
+ 
+ 
+ 
+ AHORA YA TENEMOS EL RECORD EN EL LOCAL STORAGE, ADEMAS SABEMOS SI ROMPIO RECORD, SI NO, Y SI ES SU PRIMERA VEZ.
+ 
+ 
+ 
+ 
+ 
+ ----------------------------------------------------------------
+ 
+ 
+ 
+ 
+ 
+ ///////
+ AHORA VAMOS A IMPRIMIR EL RECORD
+ 				///////
+ 				
+ 				
+ 				
+ function startGame(){
+ ...
+ if (!timeStart){
+    timeStart = Date.now();
+    timeInterval = setInterval(showTime , 100)
+    showRecord();
+  }
+...
+
+
+1. vamos a llamar a showRecord(), junto con el tiempo.
+
+
+2. SHOWRECORD()
+
+function showRecord(){
+  spanRecord.innerHTML = localStorage.getItem("record_time");
+}
+
+hizimos queryselector a un span. y con un innerHTMl vamos a imprimirle lo que esté en el local storage. OSEA EL RECORD QUE YA HEMOS CALCULADO. 
+
+...
+
+
+
+
+
+.....................................................................
+
+///////
+MOSTRAR MENSAJES DEL RECORD
+USAMOS LA MISMA LOGICA.
+			///////
+
+
+
+
+1. HEMOS HECHO UN QUERYSELECTOR A UN SPAN.   Y LE HAREMOS INNERHTML
+
+
+/SI SUPERAMOS EL RECORD LE DIREMOS
+	pResult.innerHTML = 'SUPERASTE EL RECORD :)'
+	
+/SI NO LO SUPERAMOS LE DIREMOS
+	pResult.innerHTML = 'lo siento, no superaste el records :('
+	
+/SI ES LA PRIMERA VEZ LE DIREMOS
+	pResult.innerHTML =  'Primera vez? Muy bien, pero ahora trata 	de superarte1'
+	
+
+
+
+ const recordTime = localStorage.getItem('record_time');
+  const playerTime = Date.now() - timeStart;
+
+  if (recordTime) {
+    if (recordTime >= playerTime) {
+      localStorage.setItem('record_time', playerTime);
+      pResult.innerHTML = 'SUPERASTE EL RECORD :)';
+      
+    } else {
+      pResult.innerHTML = 'lo siento, no superaste el records :(';
+    }
+  } else {
+    localStorage.setItem('record_time', playerTime);
+    pResult.innerHTML = 'Primera vez? Muy bien, pero ahora trata de superar tu tiempo :)';
+  }
+
+
+
+..........................................................................

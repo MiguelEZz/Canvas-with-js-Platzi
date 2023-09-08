@@ -1,0 +1,192 @@
+Le daremos las medidas al canva
+
+este tiene que ser dinamico para que se ajuste a diferentes tamaños de pantallas
+
+................
+
+
+1. DANDOLE TAMAÑO RESPONSIVE AL CANVA
+
+#hay diferentes formas yo lo hice calculando el width de la ventana y sacandole el 60%.
+
+	a) SACARLE EL WIDTH O HEIGHT A LA VENTANA
+		sirve para saber cuanto esta midiendo
+		el espacio visible en ese momento
+		
+		window.innerWidth
+		window.innerHeight
+		
+		PODEMOS SACAR EL VALOR DE ESTOS Y USARLOS PARA
+		AJUSTAR MEDIDAS. 
+		
+		window.innerWidth * 0.5  // para sacarle la midad
+		
+
+TAMAÑO CANVA
+
+.tienen que ser cuadrado
+.tiene que dejar espacio para las otras cosas
+
+yo lo hice con un condicional if/else
+
+
+    let canvasSize;
+    
+    if(window.innerWidth > 800){
+        canvasSize = 500
+    } else{
+        canvasSize = window.innerWidth * 0.6
+    }
+    
+ 1.- si el width de la pantalla es mas grande que 800px el canva siempre va a medir 500px, para que no cause problemas tapando los otros componentes
+ 
+ 2.- si el width es menor, calcula el 60% del width y se lo da al canva en su alto y largo, para que se acomode, y sea siempre un cuadrado..
+ 
+ 
+ ESTO FACILITA PARA QUE AUTOMATICAMENTE SE REACOMODE DE LA FORMA MAS OPTIMA DEPENDIENDO DEL DISPOSITIVO EN EL QUE SE ENCUENTRE
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+.................................................................................................................................
+ 
+ 
+ 
+ 
+ 
+ AHORA COLOCAREMOS LOS EMOJIS EN LA PANTALLA
+ Y LES DAREMOS SU TAMAÑO DE ACUERDO A ESTA
+ 
+ 
+ elementSize = canva/10
+ 
+ 
+ 
+1. USAMOS FILLTEXT PARA COLOCAR LOS EMOJIS EN EL PLANO
+Y MODIFICAMOS SU FONT PARA QUE SE AJUSTE SU TAMAÑO
+
+	a) ajustamos el tamaño y posicion de cada elemento
+	
+	
+    game.font = elementsSize + "px Verdana";
+    game.textAlign = "end"
+    
+    	FONT. el tamaño va a ser de elementSize "canva/10"
+    	como tendremos 10 elementos los colocamos como 1/10
+    	
+    	TEXTALIGN. lo colocamos en "end" para que se ubique para 
+    	atras
+    	"1000/10 == 100, si colocamos el elemento de 100px en la 
+    	posicion 100, este comenzara desde la 100 - 200 y 
+    	dejara 0 - 100 vacio
+    	por ello colocamos para que este al final
+    	para que en la posicion 100 - 0 ,  200-100, 300-200."
+    	
+    	
+	b) dibujamos con un BUCLE los 10 elementos
+	
+ 	   for (let i = 1; i <= 10; i++){
+       	 game.fillText(emojis["X"], elementsSize * i, 				elementsSize) 
+    }
+    
+	dibujaremos un elemento 10 veces
+	
+	1. comenzamos con un i = 1. este lo multiplica con el 
+	elementSize y allì dibuja el emoji. 
+	100 - 0   (por el "end")
+	
+	2. i = 2, lo multiplica con el elemetSize. 2 * 100 = 200
+	y alli dibuja el emoji
+	200 - 100  (por el "end")
+	
+	...
+	
+	Y ASI CON TODOS L0S ELEMENTOS 
+
+
+
+.................................................................................................................................
+
+
+
+
+
+
+
+
+RESPONSIVE CON EL JUEGO CORRIENDO
+
+
+function startGame(){
+
+    let medida;
+
+    function updateWindowWidth() {
+
+        if (window.innerWidth > 800){
+            medida = 500;
+        }else{
+            medida = window.innerWidth* 0.63
+        }
+         
+        canvas.setAttribute("width", medida)
+        canvas.setAttribute("height", medida)
+
+        const elementsSize = medida/10;
+
+        game.font = elementsSize + "px Verdana";
+        game.textAlign = "end"
+
+     game.fillText(emojis["X"],elementsSize,elementsSize)
+
+     for (let i = 1; i <= 10; i++){
+        game.fillText(emojis["X"], elementsSize * i, elementsSize) 
+    }
+      }
+
+    updateWindowWidth();
+
+    window.addEventListener("resize", updateWindowWidth);}
+    
+     
+    
+    
+    
+
+   YO LO HIZE DE ESTA FORMA PERO.
+   
+   
+  ..........
+   LO MEJOR SERIA DIVIDIR CADA FUNCION POR PIEZAS
+   TENER UNA FUNCION PARA CADA FUNCION ESPECIFICA
+  ..........
+  
+  
+  
+   COMO:
+   
+   1.UNA FUNCION QUE CALCULE LAS MEDIDAS. 
+   2.UNA FUNCION QUE DIBUJE EL MAPA (de acuerdo a las medidas)
+   
+   a) con el eventlistener "resize" llamamos CalcMedidas() cada
+   vez que las medidas cambien
+   
+   b) CalcMedidas() calcula las medidas y ejecuta la funcion
+   	dibujoObj()
+   	
+   c) dibujoObj() dubuja con las medidas que le paso 
+   CalcMedidas() 
+   
+   ESTO SE REPITE CADA VEZ QUE LAS MEDIDAS CAMBIEN
+   
+ 	
+   ////////////////////////////////////////////////////
+   
+   VAYA, UNA FUNCION DIBUJO ALGO CON UNA MEDIDA, Y ESTA ES CAMBIADA, EL DIBUJO DESAPARECE
+   
+   PERO PODEMOS VOLVER A DIBUJARLO CON LA NUEVA MEDIDA
+   
+   ///////////////////////////////////////////////////////

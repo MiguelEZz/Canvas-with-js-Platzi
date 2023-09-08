@@ -1,0 +1,163 @@
+ESTA ES OTRA FORMA PARA RENDERIZAR EL MAPA, 
+https://i.ibb.co/pjXB8dp/Expresiones-Regulares.png = expreciones regulares course
+ES MAS LEGIBLE..
+
+
+
+README:
+primero convertimos el atring en un array de arrays, para poder leer su contenido como una tabla bidimencional.
+
+con un ciclo for vamos a leer todos los elementos del mapa, y segun su posicion vamos a dibujar el emoji que le corresponda a cada letra. 
+la posicion donde se dibujara esta determinada por la posicion en la que se encuentren los emojis.
+
+
+
+
+...
+USAREMOS ESTA MISMA SINTAXIS
+
+  const map = maps[1]
+  const mapRows = map.trim().split("\n");
+  const mapRowCols = mapRows.map(row=>row.trim().split(""))
+  console.log({map, mapRows, mapRowCols})
+
+1. al array del mapa, le quita los espacios al inicio y al fin
+   lo separa en un array con strings que son cada linea separada
+   por su salto de linea (n/) 
+  
+2. a este array, le hacemos un map para que recorra cada uno de 
+   los strings que tiene.
+   
+   y en el map, a cada array le quita los espacios sobrantes trim
+   y luego crea un array con cada caracter separado split()
+   
+//////////   
+   el MAP() DEVUELVE UN ARRAY CON LOS OTROS ARRAYS QUE CREO EL 
+   SPLIT() Y QUE SEPARÓ POR CADA CARACTER
+							////////
+							
+
+
+----------------------------------------------------------------
+
+
+
+
+RECORDEMOS EL ARRAY DE ARRAYS QUE CREAMOS EN EL MODULO ANTERIOR
+0: Array(10) [ "O", "-", "-", … ]
+1: Array(10) [ "X", "-", "-", … ]
+2: Array(10) [ "X", "X", "-", … ]
+3: Array(10) [ "X", "-", "-", … ]
+4: Array(10) [ "X", "-", "X", … ]
+5: Array(10) [ "X", "-", "X", … ]
+6: Array(10) [ "X", "X", "-", … ]
+7: Array(10) [ "X", "X", "-", … ]
+8: Array(10) [ "X", "X", "X", … ]
+9: Array(10) [ "X", "X", "X", … ]
+
+
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+
+
+
+
+----RECORRIENDO EL ARRAY CON FOREACH PARA DIBUJAR LOS EMOJIS-----
+
+
+   EN LA ANTERIOR FORMA USAMOS DOS FOR
+   QUE RECORRIERON TODOS LOS ELEMENTOS DEL ARRAY
+   
+   
+   PERO AHORA USAREMOS DOS FOREACH LOS CUALES HARAN LO MISMO PERO
+   MAS LIMPIO.
+   
+   
+////////
+
+    mapRowCols.forEach((row , rowi)=>{
+    row.forEach((col,coli)=>{
+     const emoji = emojis[col]
+     const posX =elementsSize * (coli+1);
+     const posY =elementsSize * (rowi+1);
+     game.fillText(emoji,posX , posY)
+     console.log(col,coli,row,rowi)
+    });
+  });  
+			         	////////
+	
+	
+1. con FOREACH recorres cada uno de las filas arrays
+	mapRowCols.forEach((row , rowi)=>{
+	nos quedamos con su:
+	VALOR
+	INDICE
+
+
+|2. con otro FOREACH recorres cada uno de los STRINGS dentro
+|	de los ARRAYS del ARRAY
+|	row.forEach((col,coli)=>{
+|		nos quedamos con su:
+|			VALOR
+|			INDICE
+|	
+|
+|
+|
+|3. DENTRO DEL SEGUNDO FOR EACH
+	
+	///////
+    POR CADA ELEMENTO Y ARRAY QUE PERTENEZCA VA A HACER ESTO:
+    
+   (este recorre todos los elementos de cada array)
+ 					///////
+ 
+ 
+    3.1 GUARDANDO VALORES DE EMOJIS
+    
+   	 const emoji = emojis[col]
+    
+   	 guardamos cada emoji respecto al indice que esté 	
+   	 iterando
+   	 emojis[0],emojis[1],emojis[2],emojis[3],emojis[4]...
+    		//FILA POR FILA
+    	
+    	
+   3.2 GUARDAMOS LAS POSICIONES DE LOS EMOJIS
+   
+         const posX =elementsSize * (coli+1);
+         const posY =elementsSize * (rowi+1);
+         
+        guardamos las posiciones
+        elementSize = 100   (1000/10)··ejm
+        coli = 0
+        
+        RECORDAR QUE TENEMOS QUE COLOCAR LA POSICION DESDE
+        100 HASTA 1000, YA QUE LOS ESTAMOS COLOCANDO
+        DESDE EL FINAL 100-0, 200-100, 300-200...
+        
+        POR ESO A COLI LE SUMAMOS ++1 
+        PARA QUE MULTIPLIQUE DESDE EL 1*100, 2*100, 3*100...
+      
+      
+   3.3 DIBUJAMOS LOS EMOJIS CON SU POSICION
+   
+   	game.fillText(emoji,posX , posY)
+   	
+   	ahora que ya tenemos el emoji(va cambiando con cada 
+   	iteracion)
+   	y la posicion LO DIBUJAMOS
+   	
+   	1 game.fillText(💣,100, 100)
+   	2 game.fillText(💣,100, 200)
+   	...
+   	3 game.fillText(💣,200, 100)
+   	4 game.fillText(💣,200, 200)
+   	...
+   	
+   	
+FIN, SE VA A DIBUJAR CADA ELEMENTO QUE LE TOQUE, EN CADA CUADRICULA QUE PERTENESCA RECORRIENDO ABSOLUTAMENTE TODAS LA POSICIONES.
+
+        
+    
+    

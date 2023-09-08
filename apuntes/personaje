@@ -1,0 +1,46 @@
+CON RENDER MAPA 1  Y
+RENDER MAPA 2
+
+YA HEMOS DIBUJADO TODOS LOS EMOJIS EN SU RESPECTIVA POSICION, CON SU EMOJI RESPECTIVIO.
+--------------------------------------------------------------
+
+README:
+con una condicional vamos a ver cuando se dibuje la puerta "O"
+en el canva. 
+agarraremos su posicion y alli mismo dibujaremos la calabera"PLAYER" 
+
+
+MOVIMIENTO
+creamos un objeto playerPosition que tiene los valores x:null, y:null.
+aqui vamos a guardar la posicion de la calabera para despues dibujarla.
+
+
+1. agarramos la posicion de la puerta "O" y se lo mandamos al objeto playerPosition{}.
+	(solo de dará la posicion si es la primera vez, osea 
+	si no tiene otro valor ya)
+
+
+2. dibujamos la calabera en el startGame() segun las posiciones del playerPosition, sobre la puerta. 
+
+
+
+--
+3. con los botones. vamos a cambiar el valor de playerPosition.
+	restando o sumando su tamaño.
+	para que lo volvamos a dibujar en su nueva posicion
+	
+
+4. en la misma funcion startGame() vamos a borrar todo el mapa, luego dibujamos nuevamente el mapa. y dibujamos la calabera en su nueva posicion, segun como lo haya modificado los botones.
+
+LUEGO DE PULSAR CADA BOTON LLAMAREMOS NUEVAMENTE STARTGAME() PARA DIBUJAR NUEVAMENTE TODO EL MAPA Y LA CALABERA EN SU NUEVA POSICIÓN
+--
+
+
+5. para no salirnos del mapa usaremos una logica para saber cuando estemos en los bordes y que no podamos usar los botones de movimiento. 
+los botones de movimiento tendran una condicional para saber donde estan, si estan en algun borde ya no podran mover al personaje.
+
+................................................................
+
+
+
+

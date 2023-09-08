@@ -1,0 +1,164 @@
+CON EL REGALITO
+
+README.md
+
+
+--------------------------------------------------------------
+
+
+
+COLISIONES CON EL REGALO
+
+
+1. En el forEach(), con una condicional, validaremos si está trabajando con el regalito"I".
+Mandamos su posicion a un objeto RegaloPosition = {}.
+
+2.RECORDAR ya tenemos guardado la posicion del jugador en un objeto playerPosition={}. con sumas y restas, este es modificado segun los botones que se opriman, y se dibuja nuevamente el mapa con la nueva posicion del jugador. 
+
+3. En movePlayer(), antes de dibujar al jugador en su nueva posición, Validaremos si las posiciones de: 
+	PlayerPosition  ==  RegaloPosition
+	
+Si es así HACEMOS ALGO()
+
+
+-------------------------------------------------------------------------
+
+
+
+
+
+COLISIONES CON ENEMYS
+
+
+1. En el ForEach() de StartGame(), con un condicional, validaremos si está trabajando con el enemigo"X".
+Y le pusheamos todas las posiciones de las bombas en forma de objetos al array
+
+enemyPositions = [{ x: 80, y: 40 },{},{},{}...];
+
+--  --
+2. RECORDAR ya tenemos guardado la posicion del jugador en un objeto playerPosition={}. con sumas y restas, este es modificado segun los botones que se opriman, y se dibuja nuevamente el mapa con la nueva posicion del jugador. 
+
+
+--  --
+3. En movePlayer(), antes de dibujar al jugador en su nueva posición,
+con un .find()  buscaremos si ambos elementos de los objetos del array
+coinciden con nuestra playerPosition={}.
+
+SI LA POSICION DEL JUGADOR COINCIDE CON LA DE ALGUNA BOMBA 
+
+
+enemyCollisionX = enemy.x.toFixed(3) == playerPosition.x.toFixed(3);
+enemyCollisionY = enemy.y.toFixed(3) == playerPosition.y.toFixed(3);
+ return enemyCollisionX && enemyCollisionY;
+
+
+#podemos usar una funcion como condicional, si este retorna True la condicion se valida 
+
+ if(enemyCollision){
+    console.log("chocaste pe causa")
+  }
+  
+
+
+--------------------------------------------------------------
+
+
+
+
+	Subiendo de nivel
+
+Cuando detectamos la colision del regalito con nuestra player position. cambiaremos el mapa, y volveremos a ejecutar el mapa, con el mapa cambiado.
+
+
+1. creamos una variable let=nuMapa, el cual será el mapa que renderizaremos
+
+
+2. en movePlayer(), cuando detectamos la colision del REGALITO CON PLAYERPOSITION, sumaremos +1 a nuMapa, (siguiente mapa) y llamaremos de nuevo a startGame(). 
+
+
+3. startGame() ahora va a renderizar el siguiente mapa, pero cuando se acaben los mapas arrojará un error. por eso:
+ if(!map){
+    gameWin();
+    return;
+  }
+  
+OSEA, SI NO !HAY UN MAPA LLAMA A GAMEWIN() Y TERMINA return;
+el JUEGO. 
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+DETECTANDO COLISIONES,
+Y VOLVIENDO AL PRINCIPIO SI PERDEMOS
+
+
+
+
+
+
+
+
+DETECTANDO COLISIONES Y VOLVIENDO A LA PUERTA
+
+
+
+
+	PRIMERA PARTE
+	CUANDO COLISIONO VUELVO AL INICIO DE CADA NIVEL
+		
+	
+1. Cuando detectemos una colision con la bomba, llamaremos a la function levelFail()
+
+2.levelFail():
+
+  playerPosition.y = undefined;
+  playerPosition.y = undefined;
+  startGame();
+  
+le damos undefined a x,y, para cuando volvamos a llamar satartGame(), colocará automaticamente la calabera en la posicion de la puerta. 
+
+#detectamos colision, y colocamos a la calabera a la posicion del inicio del nivel.
+
+
+
+
+
+
+	SEGUNDA PARTE
+	REINICIAMOS JUEGO
+	
+vamos a tener 3 vidas, cuando las perdamos todas reiniciaremos al nivel 0, y volveremos a tener 3 vidas. 
+
+1. creamos una variable lives=3;
+
+2. dentro de movePLayer, llamamos a la funcion levelFail():
+
+3. cada vez que colisionemos con una bomba, 
+-restamos -1, a lives
+-si tenemos 0 vidas, reiniciamos al primer mapa(nuMapa=0)
+ y volveremos a tener 3 vidas (lives=3)
+-playerPosition undefined, para aparecer en la puerta. 
+
+00 y luego reiniciamos el juego pero con estos nuevo valores ahora cambiados. 
+mapa = 0, lives = 3, position = puerta.
+
+
+
+
+
+CUANDO DETECTEMOS COLISION:
+
+function levelFail (){
+  lives--;
+
+  if(lives <= 0){
+    nuMapa = 0;
+    lives = 3;
+  }
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
+  startGame();
+}
+
+------------------------------------------------------------------------------------------------------------------------------

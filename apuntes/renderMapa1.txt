@@ -1,0 +1,340 @@
+ahora tenemos
+ "IXXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  OXXXXXXXXX
+  "
+  
+  
+ TENEMOS QUE SEPARAR ESTE STRING EN UN ARRAY BIDIMENCIONAL
+ ARRAY DE ARRAYS 
+ 
+ [
+ 	[i,x,x,x...]
+ 	[-,x,x,x...]
+ 	[-,x,x,x...]
+ ]
+ 
+ para poder acceder a alguno se dus valores
+ 	
+ 	array[1][1]   i
+ 	array[2][3]   x
+ 	
+
+ENTONCES ASI CON TODOS
+
+USAREMOS LOS FOR PARA RECORRER ARRAY POR ARRAY NUMERO POR NUMERO HASTA COMPLETAR LA PANTALLA DE OBJETOS
+
+
+-----------------------------------------------------------------
+---------------------------------------------------------------
+
+
+
+
+1. RENDERIZANDO EL MAPA
+	este reto es solo para llenar de bombas el mapa
+	usa dos for.
+	uno para el eje X
+	otro para el eje Y
+
+...
+  for (let row = 1; row <= 10; row++) {
+    for (let col = 1; col <= 10; col++) {
+      game.fillText(emojis["X"],elementsSize*col, elementsSize*row);
+      
+    }
+   }
+...
+
+_row comienza desde 1
+_col comienza con 1 ... 2,3,4,5,6,7,8,9
+	y en cada iteracion usa el valor de 
+	
+	row = 1 y col = 1 multiplicada por 100.
+	game.fillText(emojis["X"],100,100)
+	
+	row = 1 y col = 2 multiplicada por 100.
+	game.fillText(emojis["X"],100,200)
+	
+	...
+
+
+_row pasa a 2
+_col pasa a 1... 2,3,4,5,6,7,8,9
+	game.fillText(emojis["X"],200,100)
+	game.fillText(emojis["X"],200,200)
+	
+ETC..
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+2.USANDO  (``)
+
+	USAREMOS ``
+	ya que este cuenta a los satos le linea como (\n)
+	
+	esto nos servirá para separar EL MAPA POR FILAS
+	
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+3.USANDO EL METODO TRIM()
+	--------------TRIM()--------------------
+	
+QUITA LOS ESPACIOS QUE HAYAN ALL COMIENZO O FINAL DE UN STRING
+
+	
+"\n
+  IXXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n			SIN TRIM
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  OXXXXXXXXX\n
+  \n
+" 
+...
+"IXXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n			CON TRIM
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n	
+  -XXXXXXXXX\n
+  OXXXXXXXXX"
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+		
+4.USADO EL METODO SPLIT()
+	
+	----------------SPLIT()------------------
+	
+
+SEPARA EL STRING CADA QUE ENCUENTRE UN CARACTER QUE TU DEFINIRÁS, Y DESPUES CREA UN ARRAY CON CADA STRING SEPARADO DENTRO DEL ARRAY
+
+
+["hola mama me mima"].SPLIT(" ")		#por espacio
+
+["hola" "mama" "me" "mima"]  RESULT
+
+
+
+
+AHORA SEPARAREMOS NUESTRO ARRAY POR FILAS
+OSEA POR "\n" YA QUE ESTOS DIVIDEN LAS FILAS "SALTOS DE LINEA"
+	
+
+ "IXXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n			
+  -XXXXXXXXX\n
+  -XXXXXXXXX\n	
+  -XXXXXXXXX\n
+  OXXXXXXXXX"
+  .TRIM("\n")
+  
+  
+  RESULT:
+  
+  [ "IXXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", "  OXXXXXXXXX" ]
+
+
+ ·cada linea es [i]
+ .array[0]   va a ser la primera fila
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	
+
+
+
+
+
+5. USANDO MAP Y CONVIRTIENDO LOS STRINGS EN ARRAYS.
+
+
+/////////
+usaremos map para recorrer todas las filas "strings"
+y a cada fila le quitaremos los espacios con .trim()
+y los meteremos en arrays diferentes
+					////////////
+					
+					
+
+  const mapRows = maps[0].trim().split("\n");
+  const mapRowCols = mapRows.map(row=>row.trim().split(""))
+  
+  
+  
+  A. AL ARRAY LE APLICAMOS TRIM()
+  	para quitarle los espacios del final e inicio
+  	
+  	
+  	
+  B. AL ARRAY LE APLICAMOS SPLIT("\n")
+  	para separarlo en diferentes arrays separados por salto de linea
+  	
+  	
+  	 "IXXXXXXXXX", "  -XXXXXXXXX", "  -XXXXXXXXX", … ]
+  	 
+ 		#pero vemos que aun hay espacios en algunos arrays
+ 		y queremos separarlo por cada letra.
+  	 
+  	 
+  	 
+  	 
+  C. SEPARAMOS LOS STRINGS EN STRINGS DE UNA SOLA LETRA
+  
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	mapRows.map(row=>row.trim().split(""))
+	
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	
+	"con el map recorremos cada string uno por uno, 
+	y les aplicamos trim()
+	y les aplicamos split("")=> este separa las letras una por una
+	"
+	
+0: Array(10) [ "I", "X", "X", … ]
+1: Array(10) [ "-", "X", "X", … ]
+2: Array(10) [ "-", "X", "X", … ]
+3: Array(10) [ "-", "X", "X", … ]
+4: Array(10) [ "-", "X", "X", … ]
+5: Array(10) [ "-", "X", "X", … ]
+6: Array(10) [ "-", "X", "X", … ]
+7: Array(10) [ "-", "X", "X", … ]
+8: Array(10) [ "-", "X", "X", … ]
+9: Array(10) [ "O", "X", "X", … ]
+
+
+
+
+
+-----------------------                        -------------------------
+
+
+AHORA  PODEMOS RECORRER EL ARRAY POR FILAS Y COLUMNAS
+
+
+mapRowCols[0][0]  "I"
+mapRowCols[0][1]  "X"
+mapRowCols[0][2]...  "X"
+
+mapRowCols[7][0]   "-"
+
+OSEA QUE AHORA PODEMOS USAR LOS CICOS FOR PARA RECORRER TODOS LOS ELEMENTOS DE ESTE MAPA Y RESPECTO A ESTOS DIBUJAR EL MAPA
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+6. DIBUJANDO EL MAPA CON EL NUEVO ARRAY DE ARRAYS
+
+
+ for (let row = 1; row <= 10; row++) {
+    for (let col = 1; col <= 10; col++) {
+      game.fillText(emojis[mapRowCols[row-1][col-1]],elementsSize*col, elementsSize*row);
+    }
+  }
+  
+  . primero recordar que este for de for, esta recorriendo row y col
+  como contar. 1,1 1,2 1,2 º 2,1 2,1 2,3 º 3,1 3,2 3,3 ejm.
+  
+  . entonces usamos esta cuenta para escojer el valor del array de arrays
+  que creamos
+  
+  .emojis[mapRowCols[row-1][col-1]
+  A EMOJIS LE MANDAMOS LA ROW Y LA COL DE LA LETRA "x" que queremos
+  y le restamos uno ya que el for empieza a contar desde 1
+  y el array cuenta desde 0
+  
+  
+  el for está contando desde 1, ya que este numero lo multiplicamos por 
+  100 para obtener la posicion en la que posicionaremos nuestro objeto, 
+  "textAlign" "end".
+  
+  
+  
+  
+  
+  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  			RESUMEN
+  			
+  			
+1. ENTONCES FILL TEXT CON [1][1] recibe la posicion de la letra, "X"
+
+2. DESPUES PROCEDE A BUSCAR EL EMOJI DE ACUERDO A LA LETRA
+
+3. DESPUES POSICIONA EL EMOJI DE ACUEDO A LA POSISION MULTIPLICADA POR 100 QUE LE DIO EL FOR
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+......................................................................
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+RECUERDA QUE NO ES LA UNICA FORMA, PODEMOS HACERLO DE MUCHAS MANERAS, ELIJE LA QUE TE GUSTE
